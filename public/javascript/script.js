@@ -1,4 +1,4 @@
-var socket = io.connect("http://localhost:3000");
+var socket = io.connect("http://localhost:3000/chat");
 
 socket.on("connect", function(data) {
 	socket.emit("join", "Hello server from client");
@@ -19,3 +19,6 @@ $("form").submit(function() {
 	$('#message').val('');
 	return false;
 })
+
+
+
