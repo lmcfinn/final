@@ -114,6 +114,6 @@ app.get("/chat", function(req, res) {
 
 
 // Listen on port 3000
-app.listen(3000, function() {
+server.listen(3000, function() {
   console.log("App running on port 3000!");
 });
