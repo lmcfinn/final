@@ -49,8 +49,9 @@ app.use(passport.initialize());
 
 require('./app/config/passport')(passport);  
 
+//Do i still need to require the apiRoutes? 
+// Or does react w/ helpers.js will do the job instead?
 require('./app/config/apiRoutes')(app);
-
 
 
 // -------------------------------------------------

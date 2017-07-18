@@ -17,56 +17,22 @@ var Main = React.createClass({
         return (
             <div className="container">
                 <div className="jumbotron">
-                    <h2 className="text-center"><strong>Bartering is BACK!</strong></h2>
-                    <h3 className="text-center">Money holds no sway</h3>
+                    <h2><strong>Skill Exchange</strong></h2>
+                    <p><em></em></p>
+                    <hr />
+                    <p>
+                        <Link to="/Signup"><button className="btn btn-primary btn-lg">Sign Up</button></Link>
+                        <Link to="/Login"><button className="btn btn-danger btn-lg">Login</button></Link>
+                        <Link to="/Profile"><button className="btn btn-success btn-lg">Profile</button></Link>
+                    </p>
                 </div>
                 <div className="row">
 
-                   {this.props.children}
-
-                    <div className="col-md-6">
-                        <form id="signup" name="signup">
-                          <div className="row">
-                              <h2>Sign Up</h2>
-                              <h2 id="invalidSignup"></h2>
-                              <h6>* Require Entries</h6>
-                          </div>
-                          <div className="row">
-                            <label>Email Address *</label>
-                            <input className="text" name="email" type="email"/>
-                          </div>
-                          <div className="row">
-                              <label>Password *</label>
-                              <input name="password" type="password" className="text"/>
-                          </div>
-                          <div className="row">
-                            <input id="signupButton" className="btn" type="submit" value="Sign Up"/>
-                          </div>
-                        </form>
-                    </div>
-                    <div className="col-md-6">
-                        <form id="signup" name="signup">
-                            <div className="row">
-                                <h2>Login</h2>
-                                <h2 id="invalidLogin"></h2>
-                            </div>
-                            <div className="row">
-                                <label>Email Address </label>
-                                <input className="text" name="email" type="email"/>
-                            </div>
-                            <div className="row">
-                                <label>Password </label>
-                                <input name="password" type="password" className="text"/>
-                            </div>
-                            <div className="row">
-                                <input id="loginButton" className="btn" type="submit" value="Login"/>
-                            </div>
-                        </form>
-                    </div>
+                  {/* This code will dump the correct Child Component */}
+                  {this.props.children}
                 </div>
-                
             </div>
-        )
+        );
     }
 });
 
