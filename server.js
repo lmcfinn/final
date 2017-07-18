@@ -4,6 +4,10 @@ var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
+var passport = require('passport'); 
+var config = require('./app/config/main'); 
+
+
 // Create Instance of Express
 var app = express();
 // Set up an Express Router
@@ -24,7 +28,7 @@ app.use(express.static("./public"));
 // Require our routes files and pass our router object
 // require("./config/userRoutes")(router);
 
-app.use('/api', router);
+// app.use('/api', router);
 
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
 var db = process.env.MONGODB_URI || "mongodb://localhost/saastest";
@@ -47,78 +51,7 @@ mongoose.connect(db, function (error) {
 // ROUTES
 // -------------------------------------------------
 
-// Middleware to use for all requests
-router.use(function (req, res, next) {
-    // do logging
-    console.log('Something is happening.');
-    next(); // make sure we go to the next routes and don't stop here
-});
 
-// // Test route to make sure everything is working (accessed at GET http://localhost:8080/api)
-// router.get('/', function (req, res) {
-//     res.send('test page working!');
-// });
-
-// USER ROUTES
-// -------------------------------------------------
-// Create a new user
-app.post('/api/user', function (req, res) {
-    var user = new User();
-    user.firstName = req.body.firstname;
-    user.skills = req.body.skills;
-    user.needs = req.body.needs;
-    // ... and save new user...
-    user.save(function (err) {
-        if (err)
-            res.send(err);
-        res.json({message: 'User created!'});
-    });
-});
-
-// Find all users
-app.get('/api/user', function (req, res) {
-    User.find(function (err, users) {
-        if (err)
-            res.send(err);
-        res.json(users);
-    });
-})
-
-// Find specific user
-app.get(function (req, res) {
-    User.findById(req.params.user_id, function (err, user) {
-        if (err)
-            res.send(err);
-        console.log(err);
-        res.json(user);
-        console.log(user);
-    });
-});
-
-// NEED SEARCH ROUTE
-
-app.get("/api/need/:need_searched", function (req, res) {
-    User.find({needs: req.params.need_searched}, function (err, user) {
-        if (err)
-            res.send(err);
-        console.log(err);
-        res.json(user);
-        console.log(user);
-    });
-});
-
-// SKILL SEARCH ROUTE
-app.get(function (req, res) {
-    User.find({skills: req.params.user_skill}, function (err, user) {
-        if (err)
-            res.send(err);
-        console.log(err);
-        res.json(user);
-        console.log(user);
-    });
-});
-
-// Any non API GET routes will be directed to our React App and handled by React Router
 app.get("/", function(req, res) {
     res.sendFile(__dirname + "/public/index.html");
 });
