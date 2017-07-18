@@ -1,119 +1,42 @@
-/* Mongoose Example (Solution) (18.3.03)
- * ===================================== */
-
-// Dependencies
-var express = require("express");
-var bodyParser = require("body-parser");
+var express = require('express');  
+var app = express();  
 var logger = require("morgan");
+var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
-var path = require("path");
 
-// Initialize Express
-var app = express();
+// var User = require("./models/User");
 
-var server = require("http").createServer(app);
-var io = require("socket.io")(server);
+var PORT = process.env.PORT || 3000;
 
 
-// Set mongoose to leverage built in JavaScript ES6 Promises
-mongoose.Promise = Promise;
-
-// Here's where we establish a connection to the collection
-// We bring the model in like any old module
-// Most of the magic with mongoose happens there
-//
-// Example gets saved as a class, so we can create new Example objects
-// and send them as validated, formatted data to our mongoDB collection.
-var Example = require("./userModel.js");
-
-
-//socket.io for chat.html
-io.on("connection", function(client) {
-  console.log("Client connect...");
-
-  client.on("join", function(data) {
-    console.log(data);
-  });
-
-  client.on("messages", function(data) {
-    client.emit("thread", data);
-    client.broadcast.emit("thread", data);
-  });
-});
-
-
-// Configure app with morgan and body parser
+// Run Morgan for Logging
 app.use(logger("dev"));
-app.use(bodyParser.urlencoded({
-  extended: false
-}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text());
+app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-// Static file support with public folder
-app.use(express.static("public"));
+app.use(express.static("./public"));
 
-
-// Database configuration for mongoose
-// db: week18day3mongoose
-mongoose.connect("mongodb://localhost/finalproject");
-// Hook mongoose connection to db
+// MongoDB Configuration configuration (Change this URL to your own DB)
+mongoose.connect("mongodb://localhost/saastest");
 var db = mongoose.connection;
 
-// Log any mongoose errors
-db.on("error", function(error) {
-  console.log("Mongoose Error: ", error);
+db.on("error", function(err) {
+  console.log("Mongoose Error: ", err);
 });
 
-// Log a success message when we connect to our mongoDB collection with no issues
 db.once("open", function() {
   console.log("Mongoose connection successful.");
 });
 
 
-// Routes
-// ======
-
-app.get("/", function(req, res, next) {
-  res.sendFile(__dirname + "/public/index.html")
+app.get("/", function(req, res) {
+  res.sendFile(__dirname + "/public/index.html");
 });
 
 
-
-// Route to post our form submission to mongoDB via mongoose
-app.post("/submit", function(req, res) {
-
-  console.log("xxxxxx")
-
-  // We use the "Example" class we defined above to check our req.body against our user model
-  var user = new Example(req.body);
-
-  // With the new "Example" object created, we can save our data to mongoose
-  // Notice the different syntax. The magic happens in userModel.js
-  user.save(function(error, doc) {
-    // Send any errors to the browser
-    if (error) {
-      res.send(error);
-    }
-    // Otherwise, send the new doc to the browser
-    else {
-      console.log('doc', doc)
-      res.redirect("/chat");
-      // res.send(doc);
-    }
-  });
-});
-
-app.get("/chat", function(req, res) {
-	
-	// res.render("chat");
-	// res.sendFile(__dirname + "/public/chat.html");
-	res.sendFile(path.join(__dirname, "/public/chat.html"));
-	
-	
-});
-
-
-
-// Listen on port 3000
-server.listen(3000, function() {
-  console.log("App running on port 3000!");
-});
+app.listen(PORT, function() {
+	console.log('Your server is running on port ' + PORT + '.');
+});  
+  
