@@ -63,6 +63,12 @@ app.get("/", function(req, res) {
     res.sendFile(__dirname + "/public/index.html");
 });
 
+app.get('/api/profile/:id', function(req, res) {
+  console.log("id here")  
+  // res.send('Relax. We will put the home page here later.');
+  res.sendFile(__dirname + "/public/profile.html")
+});
+
 app.get('/logout', function(req, res){
     req.logout();
     res.redirect('/');
