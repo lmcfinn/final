@@ -5,7 +5,7 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 
 var passport = require('passport'); 
-var config = require('./app/config/main'); 
+var config = require('./app/config/passportSecret'); 
 
 
 // Create Instance of Express
@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.text());
 app.use(bodyParser.json({type: "application/vnd.api+json"}));
 
-app.use(router)
+// app.use(router)
 
 app.use(express.static("./public"));
 
@@ -45,6 +45,12 @@ mongoose.connect(db, function (error) {
     }
 });
 
+app.use(passport.initialize());  
+
+require('./app/config/passport')(passport);  
+
+require('./app/config/apiRoutes')(app);
+
 
 
 // -------------------------------------------------
@@ -54,6 +60,11 @@ mongoose.connect(db, function (error) {
 
 app.get("/", function(req, res) {
     res.sendFile(__dirname + "/public/index.html");
+});
+
+app.get('/logout', function(req, res){
+    req.logout();
+    res.redirect('/');
 });
 
 // Listen on the port

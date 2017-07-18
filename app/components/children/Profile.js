@@ -5,7 +5,7 @@ var React = require("react");
 var helpers = require("../../utils/helpers");
 
 // Create the Main component
-var Saved = React.createClass({
+var Profile = React.createClass({
 
   getInitialState: function() {
    
@@ -109,4 +109,4 @@ var Saved = React.createClass({
 });
 
 // Export the module back to the route
-module.exports = Saved;
+module.exports = Profile;
