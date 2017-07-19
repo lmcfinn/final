@@ -81,6 +81,7 @@ module.exports = function(app) {
             });
 
             res.json({ 
+              message: "Welcome back " + user.email,
               success: true, 
               token: 'JWT ' + token,
               id: user._id 

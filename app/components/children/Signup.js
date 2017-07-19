@@ -14,16 +14,15 @@ var Signup = React.createClass({
 
   setSignUp: function(email, password) {
 
-    console.log("setSignup email", email)
-    console.log("setSignup password", password)
-
     helpers.signUp(email, password).then(function(data) {
-      console.log("getSignUp data", data)
+      console.log("getSignUp: ", data.data)
       this.setState({
         email: data.email,
         password: data.password
       });
+      alert(data.data.message);
     }.bind(this));
+    
   },
 
   
@@ -47,6 +46,7 @@ var Signup = React.createClass({
         var password = this.state.password;
 
         this.setSignUp(email, password);
+
   },
 
 	render: function() {
