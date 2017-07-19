@@ -4,7 +4,31 @@ var helpers = require("../../utils/helpers");
 
 var Signup = React.createClass({
 	
+  getInitialState: function () {
+    return {
+        email: "",
+        password: ""
+    };
+  },
 
+  setSignUp: function(email, password) {
+    helpers.signUp().then(function(data) {
+      console.log("getSignUp data", data)
+      this.setState({
+        email: data.email,
+        password: data.password
+      });
+    }.bind(this));
+  },
+
+
+
+  handleClick: function (event) {
+        event.preventDefault();
+        console.log("CLICKED");
+        // this.props.updateSearch(this.state.search);
+        var tenK = this.setSignUp();
+  },
 
 	render: function() {
 		return (
@@ -25,9 +49,10 @@ var Signup = React.createClass({
                     <input name="password" type="password" className="text"/>
                 </div>
                 <div className="row">
-                  <input id="signupButton" className="btn" type="submit" value="Sign Up"/>
+                  <button id="signupButton" className="btn" onClick={this.handleClick} >Submit</button>
                 </div>
               </form>
+              {this.props.children}
 			</div>
 
 		);

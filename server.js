@@ -64,8 +64,9 @@ app.get("/", function(req, res) {
 });
 
 app.get('/profile/:id', function(req, res) {
+// app.get('/api/profile/:id', function(req, res) {
   console.log("id here")  
-  // res.send('Relax. We will put the home page here later.');
+
   res.sendFile(__dirname + "/public/profile.html")
 });
 

@@ -32,7 +32,9 @@ var helpers = {
                 console.log("login data", data)
                 return data
             });
-    }
+    },
+
+    
    
 };
 

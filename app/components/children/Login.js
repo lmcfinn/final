@@ -2,6 +2,18 @@ var React = require("react");
 
 var Login = React.createClass({
 
+  getInitialState: function() {
+    return {
+      email: "",
+      password: ""
+    }
+  },
+
+  getLogIn: function() {
+
+
+  },
+
 
 	render: function() {
 		return (
