@@ -70,7 +70,7 @@ module.exports = function(app) {
       console.log("user", user)
 
       if (!user) {
-        res.json({ success: false, message: 'Authentication failed. User not found.' });
+        res.json({ success: false, message: 'Authentication failed. Please try again. ' });
       } else {
         // Check if password matches
         user.comparePassword(req.body.password, function(err, isMatch) {
@@ -87,7 +87,7 @@ module.exports = function(app) {
               id: user._id 
             });
           } else {
-            res.json({ success: false, message: 'Authentication failed. Passwords did not match.' });
+            res.json({ success: false, message: 'Authentication failed. Please try again.' });
           }
         });
       }

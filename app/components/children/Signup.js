@@ -27,12 +27,12 @@ var Signup = React.createClass({
 
   
   handleChangeEmail(data) {
-    console.log("handleChangeEmail", data.target.value)
+    // console.log("handleChangeEmail", data.target.value)
     this.setState({email: data.target.value});
   },
 
   handleChangePassword(data) {
-    console.log("handleChangePassword", data.target.value)
+    // console.log("handleChangePassword", data.target.value)
     this.setState({password: data.target.value});
   },
 
