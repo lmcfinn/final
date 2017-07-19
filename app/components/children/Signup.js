@@ -3,6 +3,7 @@ var React = require("react");
 var helpers = require("../../utils/helpers");
 
 var Signup = React.createClass({
+
 	
   getInitialState: function () {
     return {
@@ -25,42 +26,27 @@ var Signup = React.createClass({
     }.bind(this));
   },
 
-  // setEmail: function(email) {
-  //   this.setState({ email: email });
-  // },
-
-  // setPassword: function(password) {
-  //   this.props.setState({password: password});
-  // },
   
-  handleChange(data) {
+  handleChangeEmail(data) {
     console.log("handleChangeEmail", data.target.value)
     this.setState({email: data.target.value});
   },
 
-  // handleChange(password) {
-  //   console.log("handleChangePassword", password.target.value)
-  //   this.setState({password: password.target.value});
-  // },
+  handleChangePassword(data) {
+    console.log("handleChangePassword", data.target.value)
+    this.setState({password: data.target.value});
+  },
 
-
-
-  // handleClick: function (event) {
-  //       event.preventDefault();
-  //       console.log("CLICKED");
-  //       // this.props.updateSearch(this.state.search);
-  //       this.setSignUp();
-  // },
 
   handleSubmit: function (event) {
         event.preventDefault();
-        console.log("Submitted");
+        console.log("email submitted", this.state.email);
+        console.log("password submitted", this.state.password);
         
-        // var email = {this.state.value}
-        // console.log("handleSubmit", email)
+        var email = this.state.email;
+        var password = this.state.password;
 
-        // this.props.updateSearch(this.state.search);
-        this.setSignUp();
+        this.setSignUp(email, password);
   },
 
 	render: function() {
@@ -75,11 +61,11 @@ var Signup = React.createClass({
                 </div>
                 <div className="row">
                   <label>Email Address *</label>
-                  <input className="text" name="email" type="email" value={this.state.value} onChange={this.handleChange} />
+                  <input className="text" name="email" type="email" value={this.state.email} onChange={this.handleChangeEmail} />
                 </div>
                 <div className="row">
                     <label>Password *</label>
-                    <input name="password" type="password" className="text" />
+                    <input name="password" type="password" className="text" value={this.state.password} onChange={this.handleChangePassword} />
                 </div>
                 <div className="row">
                   <button id="signupButton" className="btn" type="submit" >Submit</button>
