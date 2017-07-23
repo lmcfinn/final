@@ -1,56 +1,37 @@
-// Inclue the React library
-var React = require("react");
+// Include the React library
+import React from 'react';
+
+import { render } from 'react-dom';
 
 // Include the react-router module
-var router = require("react-router");
+import { Router, Route, hashHistory } from 'react-router';
 
-// Include the Route component for displaying individual routes
-var Route = router.Route;
 
-// Include the Router component to contain all our Routes
-// Here where we can pass in some configuration as props
-var Router = router.Router;
-
-// Include the hashHistory prop to handle routing client side without a server
-// https://github.com/ReactTraining/react-router/blob/master/docs/guides/Histories.md#hashhistory
-var hashHistory = router.hashHistory;
-
-// Include the IndexRoute (catch-all route)
-var IndexRoute = router.IndexRoute;
+//  Include the IndexRoute (catch-all route)
+// const IndexRoute = router.IndexRoute;
 
 // Reference the high-level components
-var Main = require("../components/Main");
-var Child1 = require("../components/children/Child1");
-var Child2 = require("../components/children/Child2");
-var Child3 = require("../components/children/Child3");
-// var GrandChild1 = require("../components/children/grandchildren/GrandChild1");
-// var GrandChild2 = require("../components/children/grandchildren/GrandChild2");
+import Main from "../components/Main";
+import Search from "../components/Search";
+import User from "../components/User";
+import Map from "../components/Map";
+
 
 // Export the Routes
-module.exports = (
-
-  // The high level component is the Router component
+render((
+  // High level component is the Router component.
   <Router history={hashHistory}>
-
     <Route path="/" component={Main}>
 
-      {/* If user selects Child1 then show the appropriate component*/}
-      <Route path="/Child1" component={Child1} />
+      {/* If user selects Search or Saved show the appropriate component */}
+      <Route path="/search" component={Search} />
+      <Route path="/user" component={User} />
+      <Route path="/map" component={Map} />
 
-      
-      <Route path="/Child3" component={Child3} />
-   
-
-      {/* If user selects Child2 then show the appropriate component*/}
-      <Route path="/Child2" component={Child2} />
 
       {/* If user selects any other path... we get the Home Route */}
-      <IndexRoute component={Child1} />
-
-      
-
+      {/*<IndexRoute component={Search} />*/}
 
     </Route>
-
-  </Router>
+  </Router>), document.getElementById('app')
 );
