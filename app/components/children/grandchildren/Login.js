@@ -1,6 +1,10 @@
 var React = require("react");
 
-var helpers = require("../../utils/helpers");
+// import { browserHistory } from 'react-router'
+
+var browserHistory = require("react-router").browserHistory;
+
+var helpers = require("../../../utils/helpers");
 
 
 var Login = React.createClass({
@@ -8,20 +12,36 @@ var Login = React.createClass({
   getInitialState: function() {
     return {
       email: "",
-      password: ""
+      password: "",
+      token: ""
     }
   },
 
   getLogin: function(email, password) {
-
     helpers.login(email, password).then(function(data) {
-      console.log("getLogin: ", data.data)
 
+      //Clear out the input fields
       this.setState({
-        email: data.email,
-        password: data.password
+        email: "",
+        password: ""
       });
-      alert(data.data.message);
+     
+      var userId = data.data.id;
+      var userToken = data.data.token;
+      console.log("userToken", userToken);
+      
+      localStorage.setItem("userToken", userToken);
+   
+      // debugger
+
+      // alert(data.data.message);
+      if(data.data.success === true) {
+        browserHistory.push(`/Profile/${userId}`);
+      } else {
+        alert(data.data.message)
+      };
+       
+
     }.bind(this));
   },
 
